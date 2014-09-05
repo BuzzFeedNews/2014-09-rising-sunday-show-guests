@@ -1,17 +1,21 @@
-Sunday Shows Guest List
-=======================
+# "Rising" Sunday Show Guests 
 
-Since the beginning of 2009, more than 1,500 people have appeared on five Sunday news and political talk shows: “Meet the Press,” “Face the Nation,” “This Week,” “Fox News Sunday” and “State of the Union.” Many are familiar faces in Washington, where lawmakers, consultants and pundits routinely sound off on the week's news, while others come from the worlds of entertainment and sports. [Researchers at American University](http://www.american.edu/spa/wpi/sunday-morning-monitor.cfm) have collected more than 9,000 appearances during that time. The Upshot added to the original spreadsheet and standardized the names. The [interactive graphic](http://www.nytimes.com/interactive/2014/09/05/upshot/05up-sundayguests.html) does not display network employees or regular guests on contract, but the source data includes all guests.
+This repository contains the data and code behind the September 5, 2014 BuzzFeed News post, "[Five Sunday Morning Show Guests Whose Stars Are Rising](http://buzzfeed.com/jsvine/five-sunday-morning-show-guests-whose-stars-are-rising)." 
 
-## Story
+## Data
 
-* [Looking for John McCain? Try a Sunday Morning Show](http://www.nytimes.com/2014/09/06/upshot/looking-for-john-mccain-try-a-sunday-morning-show.html)
+The data — [`data/guests.csv`](data/guests.csv) — [comes from *The New York Times*'s The Upshot](http://www.nytimes.com/2014/09/06/upshot/looking-for-john-mccain-try-a-sunday-morning-show.html), via researchers at [American University](http://www.american.edu/spa/wpi/sunday-morning-monitor.cfm). The Upshot kindly [cleaned the data and published it to a GitHub repository](https://github.com/TheUpshot/Sunday-Shows), which is the basis for this analysis. 
 
-* [Sunday Talk Show Guests](http://www.nytimes.com/interactive/2014/09/05/upshot/05up-sundayguests.html)
+## Analysis
 
+A Python script, [`scripts/find-trending-guests.py`](scripts/find-trending-guests.py), counts the total number of appearances per guest, per year. Next it filters the guests, looking for the following three criteria:
 
-## Sources
+- Guest has appeared at least five times this year (through August 3, the most recent Sunday in the dataset).
 
-* [Download original data from AU](http://w.american.edu/spa/wpi/SundayMorningMaster5-29_a.xlsx)
+- Guest has appeared more times this year than any other year since January 2009.
 
-* [View and download cleaned data](https://github.com/TheUpshot/Sunday-Shows/blob/master/guests.csv)
+- Guest's appearances this year account for at least one-third of all of appearances since 2009.
+
+The script has one requirement, [`pandas`](https://github.com/pydata/pandas).
+
+To execute the script on a Unix operating system, run `./scripts/find-trending-guests.py < data/guests.csv > output/trending-guests.tsv`, or simply `make findings`.
